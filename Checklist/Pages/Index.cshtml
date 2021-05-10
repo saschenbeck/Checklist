@@ -1,0 +1,24 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">My Anime List Clone</h1>
+</div>
+
+<div class="card-columns">
+    @foreach(var anime in Model.Animes)
+     {
+    <div class="card">
+        <div class="card-img" style="background-image : url('@anime.Poster')"></div>
+        <div class="card-body">
+            <h5 class="card-title">@anime.Title</h5>
+        </div>
+        <div class="card-footer">
+            @anime.Watched
+        </div>
+    </div>
+     }
+</div>

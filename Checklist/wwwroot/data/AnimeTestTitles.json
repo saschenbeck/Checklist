@@ -1,0 +1,20 @@
+[
+	{
+		"id": "attack-on-titan",
+		"title": "Attack on Titan",
+		"poster": "https://fanart.tv/fanart/tv/267440/tvposter/attack-on-titan-54756d2083308.jpg",
+		"watched": true
+	},
+	{
+		"id": "code-geass",
+		"title": "Code Geass",
+		"poster": "https://fanart.tv/fanart/tv/79525/tvposter/code-geass-lelouch-of-the-rebellion-53d712dc866cc.jpg",
+		"watched": false
+	},
+	{
+		"id": "yu-yu-hakusho",
+		"title": "Yu Yu Hakusho",
+		"poster": "https://img.reelgood.com/content/show/15468bf0-6fc8-40d6-9708-fc673c27ae5a/poster-780.jpg",
+		"watched": true
+	}
+]
