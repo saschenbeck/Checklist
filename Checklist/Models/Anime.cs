@@ -14,6 +14,7 @@ namespace Checklist.Models
         public string Poster { get; set; }
         public bool Watched { get; set; }
 
+        public int[] Ratings { get; set; }
         public override string ToString() => JsonSerializer.Serialize<Anime>(this);
         
 

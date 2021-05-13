@@ -34,5 +34,34 @@ namespace Checklist.Services
                     });
             }
         }
+        public void AddRating(string animeId, int rating)
+        {
+            var animes = GetAnimes();
+
+            var query = animes.First(x => x.Id == animeId);
+
+            if (query.Ratings == null)
+            {
+                query.Ratings = new int[] { rating };
+            } else
+            {
+                var ratings = query.Ratings.ToList();
+                ratings.Add(rating);
+                query.Ratings = ratings.ToArray();
+            }
+
+            using (var outputStream = File.OpenWrite(JsonFileName))
+            {
+                JsonSerializer.Serialize<IEnumerable<Anime>>(
+                    new Utf8JsonWriter(outputStream, new JsonWriterOptions
+                    {
+                        SkipValidation = true,
+                        Indented = true,
+
+                    }),
+                    animes
+                );
+            };
+        }
     }
 }

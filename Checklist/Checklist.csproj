@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\data\" />
-    <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 
 </Project>

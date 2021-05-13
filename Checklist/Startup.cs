@@ -28,7 +28,9 @@ namespace Checklist
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddControllers();
             services.AddTransient<JsonFileAnimeService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,12 +57,13 @@ namespace Checklist
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();
-                endpoints.MapGet("/animes", (context) =>
-                {
-                    var animes = app.ApplicationServices.GetService<JsonFileAnimeService>().GetAnimes();
-                    var json = JsonSerializer.Serialize<IEnumerable<Anime>>(animes);
-                    return context.Response.WriteAsync(json);
-                });
+                endpoints.MapControllers();
+                //endpoints.MapGet("/animes", (context) =>
+                //{
+                //    var animes = app.ApplicationServices.GetService<JsonFileAnimeService>().GetAnimes();
+                //    var json = JsonSerializer.Serialize<IEnumerable<Anime>>(animes);
+                //    return context.Response.WriteAsync(json);
+                //});
 
             });
         }
