@@ -37,7 +37,7 @@ namespace Checklist.Services
         public void AddRating(string animeId, int rating)
         {
             var animes = GetAnimes();
-
+            //LINQ
             var query = animes.First(x => x.Id == animeId);
 
             if (query.Ratings == null)

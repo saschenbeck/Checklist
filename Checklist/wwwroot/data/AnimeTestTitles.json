@@ -6,7 +6,8 @@
     "Watched": true,
     "Ratings": [
       5,
-      4
+      4,
+      5
     ]
   },
   {
@@ -21,6 +22,8 @@
     "Title": "Yu Yu Hakusho",
     "Poster": "https://img.reelgood.com/content/show/15468bf0-6fc8-40d6-9708-fc673c27ae5a/poster-780.jpg",
     "Watched": true,
-    "Ratings": null
+    "Ratings": [
+      5
+    ]
   }
 ]

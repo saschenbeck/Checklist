@@ -28,6 +28,7 @@ namespace Checklist
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddServerSideBlazor();
             services.AddControllers();
             services.AddTransient<JsonFileAnimeService>();
 
@@ -58,6 +59,7 @@ namespace Checklist
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
+                endpoints.MapBlazorHub();
                 //endpoints.MapGet("/animes", (context) =>
                 //{
                 //    var animes = app.ApplicationServices.GetService<JsonFileAnimeService>().GetAnimes();

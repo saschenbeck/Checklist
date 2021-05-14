@@ -1,0 +1,112 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@using Checklist.Models
+@using Checklist.Services
+@inject JsonFileAnimeService AnimeService
+
+<h3>Anime List</h3>
+<div class="card-columns">
+    @foreach (var anime in AnimeService.GetAnimes())
+    {
+        <div class="card">
+            <div class="card-img" style="background-image : url('@anime.Poster')"></div>
+            <div class="card-body">
+                <h5 class="card-title">@anime.Title</h5>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">
+                    <button @onclick="(e => SelectAnime(anime.Id))" data-toggle="modal" data-target="#animeModal" class="btn btn-primary">More Info</button>
+                </small>
+            </div>
+        </div>
+    }
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+@if(selectedAnime != null)
+    {
+        <div class="modal fade" id="animeModal" tabindex="-1" role="dialog" aria-labelledby="animeTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="animeTitle">@selectedAnime.Title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-img" style="background-image : url('@selectedAnime.Poster');"></div>
+                            <div class="card-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        @if (voteCount == 0)
+                        {
+                            <span>Submit the first vote!</span>
+                        }
+                        else
+                        { 
+                            <span>@voteCount @voteLabel</span>
+                        }
+
+                        @for (int i = 0; i < 6; i++)
+                        {
+                            var currentStar = i;
+                            if (i <= currentRating)
+                            {
+                                <span class="fa-star fa checked" @onclick="(e => SubmitRating(currentStar))"></span>
+                            }
+                            else
+                            { 
+                               <span class="fa-star fa" @onclick="(e => SubmitRating(currentStar))"></span>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+@code 
+{
+    Anime selectedAnime;
+    string selectedAnimeId;
+
+    void SelectAnime(string animeId)
+    {
+        selectedAnimeId = animeId;
+        selectedAnime = AnimeService.GetAnimes().First(x => x.Id == animeId);
+        GetCurrentRating();
+    }
+
+    double currentRating = 0;
+    int voteCount = 0;
+    string voteLabel;
+
+    void GetCurrentRating()
+    {
+        if(selectedAnime.Ratings == null)
+        {
+            currentRating = 0;
+            voteCount = 0;
+        }
+        else
+        {
+            voteCount = selectedAnime.Ratings.Count();
+            voteLabel = voteCount > 1 ? "Votes" : "Vote";
+            currentRating = selectedAnime.Ratings.Sum() / voteCount;
+        }
+
+        System.Console.WriteLine($"Current rating for {selectedAnime.Id}: {currentRating}");
+    }
+
+    void SubmitRating(int rating)
+    {
+        System.Console.WriteLine($"Rating recieved for {selectedAnime.Id}: {rating}");
+        AnimeService.AddRating(selectedAnimeId, rating);
+        SelectAnime(selectedAnimeId);
+    }
+}
